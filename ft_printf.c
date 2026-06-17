@@ -205,23 +205,25 @@ size_t ft_printf_args_parser(const char *format, va_list *args)//parece OK
     }
     else if (*format == 'c') return (ft_get_printf_char_flag(args));
     else if (*format == 's') return (ft_get_printf_string_flag(args));
-    /*else if (*format == 'p') return (ft_get_printf_pointer_flag(args));
+    else if (*format == 'p') return (ft_get_printf_pointer_flag(args));
     else if (*format == 'd') return (ft_get_printf_int_decimal_flag(args));
     else if (*format == 'i') return (ft_get_printf_base_int_flag(args));
     else if (*format == 'u') return (ft_get_printf_unsigned_int_decimal_flag(args));
     else if (*format == 'x') return (ft_get_printf_hex_unsigned_int_flag(args));
-    else if (*format == 'X') return (ft_get_printf_upper_hex_unsigned_int_flag(args));*/
-    return (0);//caso final de comportamiento indefinido
+    else if (*format == 'X') return (ft_get_printf_upper_hex_unsigned_int_flag(args));
+    return (0);//caso final de comportamiento indefinido(si es indefinido seria 0, si es un error seria -1(REVISAR ESTO CON CUIDADO))
 }
 
 int ft_printf(char const *format, ...)//parece que ok
 {
-    size_t printf_length = 0;//printf original devuelve int, no size_t.
     va_list args;
     //va_list backup;//creamos la lista de backup. Si no vas a recorrer los argumentos dos veces, se puede eliminar la lista, su copy y el end.
+    int printf_length;
+
     va_start(args, format);
     //va_copy(backup, args);//copiamos la lista de argumentos ya inicializada al backup.
     if (!format) return (-1);
+    printf_length = 0;
     while (*format) {
         if (*format == '%') {
             format++;
@@ -245,6 +247,7 @@ void ft_check_printf_res(char *test_id, int printf_res, int ft_printf_res)
             "%s: KO\nft_printf_res: %d -> printf_res: %d\n",
             test_id, ft_printf_res, printf_res
         );
+    printf("\n\n");
 }
 
 void ft_do_printf() {//intentar usar estos tests en la parte del libft_tester del mapena o sino pedirle al alberto su tester.
