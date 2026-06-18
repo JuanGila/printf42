@@ -1,5 +1,6 @@
 // 42 Header
 #include "ft_printf.h"
+#include "libft.h"
 /*
 %c	Carácter                        char
 %s	Cadena de caracteres (string)	char *
@@ -126,30 +127,12 @@ va_end libera/normaliza cualquier estado interno asociado.
 El compilador no verifica que el tipo que pides con va_arg coincida con lo que realmente se pasó:
     esa coherencia la impone el contrato de la cadena de formato.
 */
-
-void ft_putchar_fd(char *s, int fd)
-{
-    write(fd, s, 1);
-} 
-void ft_putstr_fd(char *s, int fd)
-{
-    while (*s)
-        write(fd, s++, 1);
-}
-size_t ft_strlen(const char *s)
-{
-    size_t i = 0;
-    while (s[i])
-        i++;
-    return (i);
-}
-
 size_t ft_get_printf_char_flag(va_list *args)//c -> TERMINAR
 {
     char chr = va_arg(*args, int);
     // Promociones antes de que lleguen valores a ft_printf(*, ...): se supone que char promociona a int y tiene que ser tratado como int(preguntar).
     //char chr = va_arg(*args, int); | int chr = va_arg(*args, char);
-    ft_putchar_fd(&chr, 1);
+    ft_putchar_fd(chr, 1);
     return (1);
 }
 
@@ -159,20 +142,15 @@ size_t ft_get_printf_string_flag(va_list *args)//s -> OK
     ft_putstr_fd((char *)n, 1);
     return (ft_strlen(n));
 }
-
-/*size_t ft_get_printf_pointer_flag(va_list *args)//p -> TERMINAR
+/*
+size_t ft_get_printf_pointer_flag(va_list *args)//p -> TERMINAR
 {
-    
+    /
     void *ptr = 0x1234abcd;
           ↓
     imprime: "0x1234abcd"
 
     Pistas para que lo implementes tú:
-        Extraes el puntero con va_arg.
-        Necesitas un tipo entero capaz de almacenar una dirección de memoria.
-        Conviertes ese entero a hexadecimal.
-        Imprimes el prefijo 0x.
-        Imprimes los dígitos hexadecimales.
         Devuelves el número de caracteres impresos.
     Una cosa interesante para investigar en este contexto es el tipo uintptr_t de <stdint.h>. Pregúntate:
         ¿Por qué existe?
@@ -186,15 +164,22 @@ size_t ft_get_printf_string_flag(va_list *args)//s -> OK
 
     Por cierto, en el proyecto de 42 suele ser buena idea comprobar cómo se comporta el printf real con -> printf("%p\n", NULL);
         porque el tratamiento de punteros nulos es uno de los detalles donde más dudas aparecen al implementar %p.
-    
+    *
+   // Extraemos el puntero con va_arg.
     void *ptr = va_arg(*args, void *);
-    char *ptr_str = ft_itoa_base((unsigned long)ptr, 16);
+    // Necesitamos un tipo entero capaz de almacenar una dirección de memoria.
+    unsigned long ptr_long = (unsigned long)ptr;
+    // Convertimos el entero a hexadecimal.
+    char *ptr_str = ft_itoa_base(ptr_long, 16);//char *ptr_str = ft_itoa_base((unsigned long)ptr, 16);
+    // Imprimimos el prefijo 0x.
     ft_putstr_fd("0x", 1);
+    // Imprimimos los dígitos hexadecimales.
     ft_putstr_fd(ptr_str, 1);
-    free(ptr_str);
+    free(ptr);
     size_t len = ft_strlen(ptr_str) + 2;
+    free(ptr_str);//creo que si es correcto, revisar si itoa_base en conver_base.c hace malloc, si no hace malloc eliminamos este free.
+    // Devolvemos el número de caracteres impresos.
     return (len);
-    return 0;
 }*/
 
 size_t ft_printf_args_parser(const char *format, va_list *args)//parece OK
@@ -214,7 +199,7 @@ size_t ft_printf_args_parser(const char *format, va_list *args)//parece OK
     return (0);//caso final de comportamiento indefinido(si es indefinido seria 0, si es un error seria -1(REVISAR ESTO CON CUIDADO))
 }
 
-int ft_printf(char const *format, ...)//parece que ok
+int ft_printf(char const *format, ...)//parece que ok parcial
 {
     va_list args;
     //va_list backup;//creamos la lista de backup. Si no vas a recorrer los argumentos dos veces, se puede eliminar la lista, su copy y el end.
@@ -225,9 +210,11 @@ int ft_printf(char const *format, ...)//parece que ok
     if (!format) return (-1);
     printf_length = 0;
     while (*format) {
+        if (*format == '%' && *(format + 1) == '\0')
+            return (-1);
         if (*format == '%') {
             format++;
-            printf_length += ft_printf_args_parser(format, &args);//usamos el parser
+            printf_length += ft_printf_args_parser(format, &args);
         } else {
             write(1, format, 1);
             printf_length++;
@@ -242,41 +229,50 @@ int ft_printf(char const *format, ...)//parece que ok
 void ft_check_printf_res(char *test_id, int printf_res, int ft_printf_res)
 {
     if (ft_printf_res == printf_res) printf("%s: OK\n", test_id);
-    else
-        printf(
-            "%s: KO\nft_printf_res: %d -> printf_res: %d\n",
-            test_id, ft_printf_res, printf_res
-        );
-    printf("\n\n");
+    else printf("%s:KO\n", test_id);
+    printf("printf: %d -> ft_printf: %d\n\n", printf_res, ft_printf_res);
 }
 
-void ft_do_printf() {//intentar usar estos tests en la parte del libft_tester del mapena o sino pedirle al alberto su tester.
+int main(void) {
     int ft_printf_res = 0;
     int printf_res = 0;
     // Test1 -> %c
-    ft_printf_res = ft_printf("Hello %c\n", '!');//deberia ser '!' al ser char, no string.
+    ft_printf_res = ft_printf("Hello %c\n", '!');
     printf_res = printf("Hello %c\n", '!');
     ft_check_printf_res("Test1(char)", printf_res, ft_printf_res);
     // Test2 -> %s
     ft_printf_res = ft_printf("Hello %s\n", "world");
     printf_res = printf("Hello %s\n", "world");
     ft_check_printf_res("Test2(string)", printf_res, ft_printf_res);
+
+    //ft_printf_res = ft_printf("Hello %s\n", NULL);
+    //printf_res = printf("Hello %s\n", (char *)NULL);
+    //ft_check_printf_res("Test2(null-string)", printf_res, ft_printf_res);
     // Test3 -> %p
     ft_printf_res = ft_printf("Hello %p\n", "world");
     printf_res = printf("Hello %p\n", "world");
     ft_check_printf_res("Test3(valid_pointer)", printf_res, ft_printf_res);
+
     ft_printf_res = ft_printf("Hello %p\n", NULL);
     printf_res = printf("Hello %p\n", NULL);
     ft_check_printf_res("Test3(null_pointer)", printf_res, ft_printf_res);
-    // Test4 -> %d(probar negativos)
+    // Test4 -> %d
     ft_printf_res = ft_printf("Hello %d\n", 42);
     printf_res = printf("Hello %d\n", 42);
     ft_check_printf_res("Test4(int-decimal)", printf_res, ft_printf_res);
-    // Test5 -> %i(probar negativos)
+
+    ft_printf_res = ft_printf("Hello %d\n", -42);
+    printf_res = printf("Hello %d\n", -42);
+    ft_check_printf_res("Test4(int-decimal-negative)", printf_res, ft_printf_res);
+    // Test5 -> %i
     ft_printf_res = ft_printf("INT_MAX -> %i\n", INT_MAX-1);
     printf_res = printf("INT_MAX -> %i\n", INT_MAX-1);
     ft_check_printf_res("Test5(base-int)", printf_res, ft_printf_res);
-    // Test6 -> %u(probar negativos)
+
+    ft_printf_res = ft_printf("INT_MIN -> %i\n", INT_MIN);
+    printf_res = printf("INT_MIN -> %i\n", INT_MIN);
+    ft_check_printf_res("Test5(base-int-negative)", printf_res, ft_printf_res);
+    // Test6 -> %u
     ft_printf_res = ft_printf("UINT_MAX -> %u\n", UINT_MAX);
     printf_res = printf("UINT_MAX -> %u\n", UINT_MAX);
     ft_check_printf_res("Test6(unsigned-int-decimal)", printf_res, ft_printf_res);
@@ -304,10 +300,9 @@ void ft_do_printf() {//intentar usar estos tests en la parte del libft_tester de
     ft_printf_res = ft_printf("Bienvenidos %%%c %%%%s. Mi login es jgilaber.\n", 'a', "42");
     printf_res = printf("Bienvenidos %%%c %%%s. Mi login es jgilaber.\n", 'a', "42");
     ft_check_printf_res("Test12(various-undefined-behavior)", printf_res, ft_printf_res);
-}
-
-int main(void)
-{
-    ft_do_printf();
+    // Test13 -> Combinacion de comportamientos indefinidos/raros
+    //ft_printf_res = ft_printf("%");
+    //printf_res = printf("%");
+    //ft_check_printf_res("Test13(%%sin flag)", printf_res, ft_printf_res);
     return (0);
 }

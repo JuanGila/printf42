@@ -24,7 +24,7 @@ size_t ft_get_printf_unsigned_int_decimal_flag(va_list *args)//u -> OK
     return (ft_strlen(nbr_itoa));
     return (0);
 }
-
+/*
 size_t ft_get_printf_hex_unsigned_int_flag(va_list *args)//x -> OK
 {
     unsigned int nbr = va_arg(*args, unsigned int);
@@ -41,4 +41,4 @@ size_t ft_get_printf_upper_hex_unsigned_int_flag(va_list *args)//X -> OK
     ft_putstr_fd(ft_toupper(nbr_itoa), 1);
     return (ft_strlen(nbr_itoa));
     return (0);
-}
+}*/
