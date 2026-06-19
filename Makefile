@@ -1,5 +1,9 @@
-PRINTF_A_NAME = ft_printf.a
-PRINTF_LIB_SRCS = ft_printf.c ft_printf_utils.c
+PRINTF_A_NAME = libftprintf.a
+PRINTF_LIB_DIR = ./
+PRINTF_LIB_FILES = \
+	ft_printf.c \
+	ft_printf_utils.c
+PRINTF_LIB_SRCS = $(addprefix $(PRINTF_LIB_DIR), $(PRINTF_LIB_FILES))
 PRINTF_LIB_OBJS = $(PRINTF_LIB_SRCS:.c=.o)
 LIBFT_LIB_DIR = libft/
 LIBFT_LIB_FILES = \
@@ -48,7 +52,7 @@ LIBFT_LIB_FILES = \
 	ft_lstmap.c
 LIBFT_LIB_SRCS = $(addprefix $(LIBFT_LIB_DIR), $(LIBFT_LIB_FILES))
 LIBFT_LIB_OBJS = $(LIBFT_LIB_SRCS:.c=.o)
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
 CINCLUDES = -I ./includes
 # # Programa ar (archiver).
