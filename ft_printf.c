@@ -142,10 +142,10 @@ size_t ft_get_printf_string_flag(va_list *args)//s -> OK
     ft_putstr_fd((char *)n, 1);
     return (ft_strlen(n));
 }
-/*
+
 size_t ft_get_printf_pointer_flag(va_list *args)//p -> TERMINAR
 {
-    /
+    /*
     void *ptr = 0x1234abcd;
           ↓
     imprime: "0x1234abcd"
@@ -164,13 +164,13 @@ size_t ft_get_printf_pointer_flag(va_list *args)//p -> TERMINAR
 
     Por cierto, en el proyecto de 42 suele ser buena idea comprobar cómo se comporta el printf real con -> printf("%p\n", NULL);
         porque el tratamiento de punteros nulos es uno de los detalles donde más dudas aparecen al implementar %p.
-    *
+    */
    // Extraemos el puntero con va_arg.
     void *ptr = va_arg(*args, void *);
     // Necesitamos un tipo entero capaz de almacenar una dirección de memoria.
-    unsigned long ptr_long = (unsigned long)ptr;
+    uintptr_t ptr_unit = (uintptr_t)ptr;
     // Convertimos el entero a hexadecimal.
-    char *ptr_str = ft_itoa_base(ptr_long, 16);//char *ptr_str = ft_itoa_base((unsigned long)ptr, 16);
+    char *ptr_str = ft_itoa_base(ptr_unit, 16);//char *ptr_str = ft_itoa_base((unsigned long)ptr, 16);
     // Imprimimos el prefijo 0x.
     ft_putstr_fd("0x", 1);
     // Imprimimos los dígitos hexadecimales.
@@ -180,7 +180,7 @@ size_t ft_get_printf_pointer_flag(va_list *args)//p -> TERMINAR
     free(ptr_str);//creo que si es correcto, revisar si itoa_base en conver_base.c hace malloc, si no hace malloc eliminamos este free.
     // Devolvemos el número de caracteres impresos.
     return (len);
-}*/
+}
 
 size_t ft_printf_args_parser(const char *format, va_list *args)//parece OK
 {
@@ -190,12 +190,12 @@ size_t ft_printf_args_parser(const char *format, va_list *args)//parece OK
     }
     else if (*format == 'c') return (ft_get_printf_char_flag(args));
     else if (*format == 's') return (ft_get_printf_string_flag(args));
-    else if (*format == 'p') return (ft_get_printf_pointer_flag(args));
+    //else if (*format == 'p') return (ft_get_printf_pointer_flag(args));
     else if (*format == 'd') return (ft_get_printf_int_decimal_flag(args));
     else if (*format == 'i') return (ft_get_printf_base_int_flag(args));
     else if (*format == 'u') return (ft_get_printf_unsigned_int_decimal_flag(args));
-    else if (*format == 'x') return (ft_get_printf_hex_unsigned_int_flag(args));
-    else if (*format == 'X') return (ft_get_printf_upper_hex_unsigned_int_flag(args));
+    //else if (*format == 'x') return (ft_get_printf_hex_unsigned_int_flag(args));
+    //else if (*format == 'X') return (ft_get_printf_upper_hex_unsigned_int_flag(args));
     return (0);//caso final de comportamiento indefinido(si es indefinido seria 0, si es un error seria -1(REVISAR ESTO CON CUIDADO))
 }
 
@@ -236,73 +236,51 @@ void ft_check_printf_res(char *test_id, int printf_res, int ft_printf_res)
 int main(void) {
     int ft_printf_res = 0;
     int printf_res = 0;
-    // Test1 -> %c
-    ft_printf_res = ft_printf("Hello %c\n", '!');
-    printf_res = printf("Hello %c\n", '!');
-    ft_check_printf_res("Test1(char)", printf_res, ft_printf_res);
-    // Test2 -> %s
-    ft_printf_res = ft_printf("Hello %s\n", "world");
-    printf_res = printf("Hello %s\n", "world");
-    ft_check_printf_res("Test2(string)", printf_res, ft_printf_res);
-
-    //ft_printf_res = ft_printf("Hello %s\n", NULL);
-    //printf_res = printf("Hello %s\n", (char *)NULL);
-    //ft_check_printf_res("Test2(null-string)", printf_res, ft_printf_res);
-    // Test3 -> %p
-    ft_printf_res = ft_printf("Hello %p\n", "world");
-    printf_res = printf("Hello %p\n", "world");
-    ft_check_printf_res("Test3(valid_pointer)", printf_res, ft_printf_res);
-
-    ft_printf_res = ft_printf("Hello %p\n", NULL);
-    printf_res = printf("Hello %p\n", NULL);
-    ft_check_printf_res("Test3(null_pointer)", printf_res, ft_printf_res);
-    // Test4 -> %d
-    ft_printf_res = ft_printf("Hello %d\n", 42);
-    printf_res = printf("Hello %d\n", 42);
-    ft_check_printf_res("Test4(int-decimal)", printf_res, ft_printf_res);
-
-    ft_printf_res = ft_printf("Hello %d\n", -42);
-    printf_res = printf("Hello %d\n", -42);
-    ft_check_printf_res("Test4(int-decimal-negative)", printf_res, ft_printf_res);
+    ////** */
+    //// BASE-INT TESTS
+    
     // Test5 -> %i
     ft_printf_res = ft_printf("INT_MAX -> %i\n", INT_MAX-1);
     printf_res = printf("INT_MAX -> %i\n", INT_MAX-1);
-    ft_check_printf_res("Test5(base-int)", printf_res, ft_printf_res);
+    ft_check_printf_res("Test21(base-int)", printf_res, ft_printf_res);
 
     ft_printf_res = ft_printf("INT_MIN -> %i\n", INT_MIN);
     printf_res = printf("INT_MIN -> %i\n", INT_MIN);
     ft_check_printf_res("Test5(base-int-negative)", printf_res, ft_printf_res);
-    // Test6 -> %u
-    ft_printf_res = ft_printf("UINT_MAX -> %u\n", UINT_MAX);
-    printf_res = printf("UINT_MAX -> %u\n", UINT_MAX);
-    ft_check_printf_res("Test6(unsigned-int-decimal)", printf_res, ft_printf_res);
-    // Test7 -> %x
-    ft_printf_res = ft_printf("Hello %x\n", 42);
-    printf_res = printf("Hello %x\n", 42);//Hello 2A
-    ft_check_printf_res("Test7(unsigned-int-hex)", printf_res, ft_printf_res);
-    // Test8 -> %X
-    ft_printf_res = ft_printf("Hello %X\n", 42);
-    printf_res = printf("Hello %X\n", 42);//HELLO 2A(comprobar con compañeros ya que 2A ya esta en upper_hex)
-    ft_check_printf_res("Test8(unsigned-int-hex)", printf_res, ft_printf_res);
+    
     // Test9 -> %%
     ft_printf_res = ft_printf("Hello %%\n");
     printf_res = printf("Hello %%\n");// Hello %
-    ft_check_printf_res("Test9(%%-operator)", printf_res, ft_printf_res);
+    ft_check_printf_res("Test9(%%-operator)", printf_res, ft_printf_res);//test -> OK
+    
     // Test10 -> Combinacion de varios flags separados por palabras
     ft_printf_res = ft_printf("Bienvenidos %c 42. %s\n", 'a', "Mi login es jgilaber.");
     printf_res = printf("Bienvenidos %c 42. %s\n", 'a', "Mi login es jgilaber.");
-    ft_check_printf_res("Test11(various-separated-flags)", printf_res, ft_printf_res);
+    ft_check_printf_res("Test10(various-separated-flags)", printf_res, ft_printf_res);//test -> OK
+    
     // Test11 -> Combinacion de varios flags seguidos
     ft_printf_res = ft_printf("Bienvenidos %c %s. Mi login es jgilaber.\n", 'a', "42");
     printf_res = printf("Bienvenidos %c %s. Mi login es jgilaber.\n", 'a', "42");
-    ft_check_printf_res("Test11(various-consecutive-flags)", printf_res, ft_printf_res);
+    ft_check_printf_res("Test11(various-consecutive-flags)", printf_res, ft_printf_res);//test -> OK
+    
     // Test12 -> Combinacion de comportamientos indefinidos/raros
     ft_printf_res = ft_printf("Bienvenidos %%%c %%%%s. Mi login es jgilaber.\n", 'a', "42");
     printf_res = printf("Bienvenidos %%%c %%%s. Mi login es jgilaber.\n", 'a', "42");
-    ft_check_printf_res("Test12(various-undefined-behavior)", printf_res, ft_printf_res);
+    ft_check_printf_res("Test12(various-undefined-behavior)", printf_res, ft_printf_res);//test -> OK
+    
     // Test13 -> Combinacion de comportamientos indefinidos/raros
     //ft_printf_res = ft_printf("%");
     //printf_res = printf("%");
     //ft_check_printf_res("Test13(%%sin flag)", printf_res, ft_printf_res);
     return (0);
+    /*
+    TESTS DE UINT:
+    - 1 uint positivo
+    - 1 uint 0
+    - varios uints consecutivos
+    - varios uints separados por espacios por ejemplo
+    - varios uints negativos consecutivos
+    - varios uints negativos separados por espacios por ejemplo
+    */
+   // NOTA: S e intentara lanzar los tests de todas las flags posibles. Pero si se hace torturette/hades en consola y despues el flag 's' pues hacer solo los tests correspondientes a la flag 's'.
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libft.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jgilaber <jgilaber@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/01 21:40:06 by jgilaber          #+#    #+#             */
+/*   Updated: 2026/06/01 21:40:06 by jgilaber         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 // #includes para free, es el que falta.
@@ -6,8 +18,9 @@
 # include <stdlib.h>//malloc
 # include <stdarg.h>//va_start, va_arg, va_copy, va_end
 # include <stddef.h>//size_t
+#include <stdint.h>//uintptr_t
 # include <limits.h>
-//#include "libft.h"
+# include "libft.h"
 ////
 size_t ft_get_printf_char_flag(va_list *args);
 size_t ft_get_printf_string_flag(va_list *args);

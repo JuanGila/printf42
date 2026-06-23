@@ -52,7 +52,7 @@ LIBFT_LIB_FILES = \
 	ft_lstmap.c
 LIBFT_LIB_SRCS = $(addprefix $(LIBFT_LIB_DIR), $(LIBFT_LIB_FILES))
 LIBFT_LIB_OBJS = $(LIBFT_LIB_SRCS:.c=.o)
-CC = cc
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 CINCLUDES = -I ./includes
 # # Programa ar (archiver).
@@ -65,12 +65,12 @@ CMD_AR_RCS_FLAG = ar rcs
 CMD_RM_F_FLAG = rm -f
 #
 %.o: %.c
-	@echo "Compiling $< ..."
+	@echo "Compiling -> $< ..."
 	@$(CC) $(CFLAGS) $(CINCLUDES) -c $< -o $@
 # Esto es una dependencia. Indica que para construir ft_printf.a(PRINTF_A_NAME), primero necesito que existan los objetos .o(PRINTF_LIB_OBJS).
 # Cuando existen los objetos, ejecutamos el programa ar (archiver) para crear una libreria estatica. Es equivalente a decir "mete estos .o dentro del archivo ft_printf.a".
 $(PRINTF_A_NAME): $(PRINTF_LIB_OBJS) $(LIBFT_LIB_OBJS)
-	@echo "Doing ar command"
+	@echo "Executing command -> ar rcs $(PRINTF_A_NAME) $(PRINTF_LIB_OBJS) $(LIBFT_LIB_OBJS)"
 	@$(CMD_AR_RCS_FLAG) $(PRINTF_A_NAME) $(PRINTF_LIB_OBJS) $(LIBFT_LIB_OBJS)
 # # Make Rules
 # make all
