@@ -1,4 +1,0 @@
-// Test6 -> %u
-ft_printf_res = ft_printf("UINT_MAX -> %u\n", UINT_MAX);
-printf_res = printf("UINT_MAX -> %u\n", UINT_MAX);
-ft_check_printf_res("Test6(unsigned-int-decimal)", printf_res, ft_printf_res);

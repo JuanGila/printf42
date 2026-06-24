@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef PRINTF_H
+# define PRINTF_H
 // #includes para free, es el que falta.
 # include <stdio.h>//printf(para test)
 # include <unistd.h>//write
