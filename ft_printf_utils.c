@@ -1,44 +1,28 @@
-// 42 Header
-#include "ft_printf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jgilaber <jgilaber@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/24 19:09:34 by jgilaber          #+#    #+#             */
+/*   Updated: 2026/06/24 19:12:40 by jgilaber         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
-////
-size_t ft_get_printf_int_decimal_flag(va_list *args)//d -> OK
+#include "printflib.h"
+
+size_t	ft_get_printf_int_decimal_flag(va_list *args)//d -> OK
 {
-    return (ft_get_printf_base_int_flag(args));
+	return (ft_get_printf_base_int_flag(args));
 }
 
-size_t ft_get_printf_base_int_flag(va_list *args)//i -> OK
+size_t	ft_get_printf_base_int_flag(va_list *args)//i -> OK
 {
-    int nbr = va_arg(*args, int);
-    char * nbr_itoa = ft_itoa(nbr);
-    ft_putstr_fd(nbr_itoa, 1);
-    return (ft_strlen(nbr_itoa));
-    return (0);
+	//int nbr = va_arg(*args, int);
+	char * nbr_itoa = ft_itoa(va_arg(*args, int));
+	ft_putstr_fd(nbr_itoa, 1);
+	return (ft_strlen(nbr_itoa));
+	return (0);
 }
-
-size_t ft_get_printf_unsigned_int_decimal_flag(va_list *args)//u -> OK
-{
-    unsigned int nbr = va_arg(*args, unsigned int);
-    char * nbr_itoa = ft_itoa(nbr);
-    ft_putstr_fd(nbr_itoa, 1);
-    return (ft_strlen(nbr_itoa));
-    return (0);
-}
-/*
-size_t ft_get_printf_hex_unsigned_int_flag(va_list *args)//x -> OK
-{
-    unsigned int nbr = va_arg(*args, unsigned int);
-    char * nbr_itoa = ft_itoa_base(nbr, 16);
-    ft_putstr_fd(nbr_itoa, 1);//ft_putstr_fd(ft_tolower(nbr_itoa), 1);
-    return (ft_strlen(nbr_itoa));
-    return (0);
-}
-
-size_t ft_get_printf_upper_hex_unsigned_int_flag(va_list *args)//X -> OK
-{
-    unsigned int nbr = va_arg(*args, unsigned int);
-    char * nbr_itoa = ft_itoa_base(nbr, 16);
-    ft_putstr_fd(ft_toupper(nbr_itoa), 1);
-    return (ft_strlen(nbr_itoa));
-    return (0);
-}*/
