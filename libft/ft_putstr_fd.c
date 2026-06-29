@@ -6,23 +6,16 @@
 /*   By: jgilaber <jgilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 21:38:45 by jgilaber          #+#    #+#             */
-/*   Updated: 2026/06/01 21:38:45 by jgilaber         ###   ########.fr       */
+/*   Updated: 2026/06/19 21:18:58 by jgilaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "libft.h"
 
 void	ft_putstr_fd(char *s, int fd)
 {
 	if (!s || fd < 0)
-        return ;
+		return ;
 	while (*s)
-		write(fd, s++, sizeof(char));
+		ft_putchar_fd(*s++, fd);
 }
-/*
-int main(void) {
-    ft_putstr_fd("Hello World !", 1);
-    return (0);
-}
-*/

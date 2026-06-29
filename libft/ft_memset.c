@@ -6,12 +6,10 @@
 /*   By: jgilaber <jgilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 20:38:20 by jgilaber          #+#    #+#             */
-/*   Updated: 2026/05/28 20:38:20 by jgilaber         ###   ########.fr       */
+/*   Updated: 2026/06/19 21:19:24 by jgilaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stddef.h>
 #include "libft.h"
 
 void	*ft_memset(void *s, int c, size_t n)
@@ -28,10 +26,3 @@ void	*ft_memset(void *s, int c, size_t n)
 	}
 	return (s);
 }
-/*
-int main(void) {
-    char s[] = "HOOOOAAAAA";
-    printf("%s\n", (char *)ft_memset(s, 'L', 5));
-    return (0);
-}
-*/

@@ -6,7 +6,7 @@
 /*   By: jgilaber <jgilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 21:38:02 by jgilaber          #+#    #+#             */
-/*   Updated: 2026/06/01 21:38:02 by jgilaber         ###   ########.fr       */
+/*   Updated: 2026/06/19 21:30:48 by jgilaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,3 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	ft_strlcat(strjoin, s2, strings_length);
 	return (strjoin);
 }
-/*
-int main(void) {
-    char *s1 = malloc(sizeof(char) * 3);
-	strcpy(s1, "123");
-    char *s2 = malloc(sizeof(char) * 3);
-	strcpy(s2, "abc");
-    printf("strjoin -> %s\n", ft_strjoin(s1, s2));
-    return (0);
-}
-*/

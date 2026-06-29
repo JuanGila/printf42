@@ -6,7 +6,7 @@
 /*   By: jgilaber <jgilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 21:31:56 by jgilaber          #+#    #+#             */
-/*   Updated: 2026/06/01 21:31:56 by jgilaber         ###   ########.fr       */
+/*   Updated: 2026/06/19 21:18:19 by jgilaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,3 @@ void	ft_bzero(void *s, size_t n)
 {
 	ft_memset(s, '\0', n);
 }
-/*
-int main(void) {
-    char s[] = "HOOOOAAAAA";
-    ft_bzero(s, 5);
-    return (0);
-}
-*/

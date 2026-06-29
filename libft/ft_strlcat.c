@@ -3,45 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgilaber <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jgilaber <jgilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 05:05:56 by jgilaber          #+#    #+#             */
-/*   Updated: 2026/02/12 05:05:58 by jgilaber         ###   ########.fr       */
+/*   Updated: 2026/06/19 21:39:24 by jgilaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 size_t	ft_strlcat(char *dest, const char *src, size_t size)
-	{
-	size_t	isrc;
-	size_t	ldest;
-	size_t	lsrc;
+{
+	size_t	dest_len;
+	size_t	src_len;
+	size_t	src_index;
 
-	ldest = ft_strlen(dest);
-	lsrc = ft_strlen(src);
-	isrc = 0;
-	if (size <= ldest)
-		return (lsrc + size);
-	while (src[isrc] != '\0' && isrc < size - ldest - 1)
+	dest_len = ft_strlen(dest);
+	src_len = ft_strlen(src);
+	src_index = 0;
+	if (size <= dest_len)
+		return (src_len + size);
+	while (src[src_index] && src_index < size - dest_len - 1)
 	{
-		dest[ldest + isrc] = src[isrc];
-		isrc++;
+		dest[dest_len + src_index] = src[src_index];
+		src_index++;
 	}
-	dest[ldest + isrc] = '\0';
-	return (ldest + lsrc);
+	dest[dest_len + src_index] = '\0';
+	return (dest_len + src_len);
 }
-
-/*
-void ft_do_strlcat(char *test, char *dst, char *src, size_t size) {
-	printf("%s -> %zu\n", test, ft_strlcat(dst, src, size));
-	printf("dst_result -> %s", dst);
-}
-
-int	main(void) {
-	char	dst[10] = "Init";
-	// Test1 -> Devuelve ¿?
-	ft_do_strlcat("Test1", dst, "VeryLongString", 10);
-	return (0);
-}
-*/

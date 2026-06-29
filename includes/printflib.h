@@ -6,7 +6,7 @@
 /*   By: jgilaber <jgilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 21:40:06 by jgilaber          #+#    #+#             */
-/*   Updated: 2026/06/24 21:46:29 by jgilaber         ###   ########.fr       */
+/*   Updated: 2026/06/27 22:35:46 by jgilaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,15 @@ typedef struct s_printf_flag_handler
 	char	specifier;
 	int		(*func)(va_list *args);
 }	t_printf_flag_handler;
-////
-size_t ft_get_printf_char_flag(va_list *args);
-size_t ft_get_printf_string_flag(va_list *args);
-size_t ft_get_printf_pointer_flag(va_list *args);
-size_t ft_get_printf_int_decimal_flag(va_list *args);
-size_t ft_get_printf_base_int_flag(va_list *args);
-size_t ft_get_printf_unsigned_int_decimal_flag(va_list *args);
-size_t ft_get_printf_lower_hex_unsigned_int_flag(va_list *args);
-size_t ft_get_printf_upper_hex_unsigned_int_flag(va_list *args);
-/*
-int ft_printf(const char *restrict format, ...);
-int		ft_printf(const char *format, ...);
-int		ft_print_char(int c);
-int		ft_print_str(char *s);
-int		ft_print_nbr(int n);
-int		ft_print_uint(unsigned int n);
-int		ft_print_hex(unsigned int n);
-int		ft_print_hex_upper(unsigned int n);
-int		ft_print_pointer(void *p);
-*/
+
+
+int	ft_get_printf_c_flag(va_list *args);
+int	ft_get_printf_s_flag(va_list *args);
+int	ft_get_printf_p_flag(va_list *args);
+int	ft_get_printf_d_flag(va_list *args);
+int	ft_get_printf_i_flag(va_list *args);
+int	ft_get_printf_u_flag(va_list *args);
+int	ft_get_printf_x_flag(va_list *args);
+int	ft_get_printf_X_flag(va_list *args);
+
 #endif

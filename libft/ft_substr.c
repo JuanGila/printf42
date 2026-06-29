@@ -6,7 +6,7 @@
 /*   By: jgilaber <jgilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 21:36:13 by jgilaber          #+#    #+#             */
-/*   Updated: 2026/06/17 17:26:23 by jgilaber         ###   ########.fr       */
+/*   Updated: 2026/06/19 21:28:56 by jgilaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,3 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	ft_strlcpy(substr, &str[start], len + 1);
 	return (substr);
 }
-
-/*
-int main(void) {
-    char *str = ft_substr("Hello world", 6, 5);
-    printf("%s\n", str);
-    return (0);
-}
-*/

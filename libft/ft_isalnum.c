@@ -6,7 +6,7 @@
 /*   By: jgilaber <jgilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 21:32:27 by jgilaber          #+#    #+#             */
-/*   Updated: 2026/06/01 21:32:27 by jgilaber         ###   ########.fr       */
+/*   Updated: 2026/06/19 21:25:17 by jgilaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,3 @@ int	ft_isalnum(int c)
 		|| (c >= 'A' && c <= 'Z')
 		|| (c >= 'a' && c <= 'z'));
 }
-/*
-int main() {
-    char c = 'a';
-    printf("%d\n", ft_isalnum(c));
-    return 0;
-}
-*/

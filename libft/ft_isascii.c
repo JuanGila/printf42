@@ -6,7 +6,7 @@
 /*   By: jgilaber <jgilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 21:32:50 by jgilaber          #+#    #+#             */
-/*   Updated: 2026/06/01 21:32:50 by jgilaber         ###   ########.fr       */
+/*   Updated: 2026/06/19 21:24:44 by jgilaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,3 @@ int	ft_isascii(int c)
 {
 	return (c >= 0 && c <= 127);
 }
-/*
-int main() {
-    char c = 'a';
-    printf("%d\n", ft_isascii(c));
-    return 0;
-}
-*/

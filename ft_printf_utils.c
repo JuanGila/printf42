@@ -6,23 +6,58 @@
 /*   By: jgilaber <jgilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 19:09:34 by jgilaber          #+#    #+#             */
-/*   Updated: 2026/06/24 19:12:40 by jgilaber         ###   ########.fr       */
+/*   Updated: 2026/06/27 22:39:32 by jgilaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "printflib.h"
 
-size_t	ft_get_printf_int_decimal_flag(va_list *args)//d -> OK
+int	ft_get_printf_d_flag(va_list *args)
 {
-	return (ft_get_printf_base_int_flag(args));
+	return (ft_get_printf_i_flag(args));
 }
 
-size_t	ft_get_printf_base_int_flag(va_list *args)//i -> OK
+int	ft_get_printf_i_flag(va_list *args)
 {
-	//int nbr = va_arg(*args, int);
-	char * nbr_itoa = ft_itoa(va_arg(*args, int));
+	int		nbr;
+	char	*nbr_itoa;
+
+	nbr = va_arg(*args, int);
+	nbr_itoa = ft_itoa(nbr);
 	ft_putstr_fd(nbr_itoa, 1);
 	return (ft_strlen(nbr_itoa));
-	return (0);
 }
+
+int	ft_get_printf_u_flag(va_list *args)
+{
+	unsigned int	nbr;
+	unsigned int	nbr_len;
+	char			*nbr_itoa;
+
+	nbr = va_arg(*args, unsigned int);
+	nbr_itoa = ft_itoa(nbr);
+	ft_putstr_fd(nbr_itoa, 1);
+	while (nbr_itoa[nbr_len])
+		nbr_len++;
+	return (nbr_len);
+}
+
+/*
+size_t ft_get_printf_x_flag(va_list *args)//x -> OK
+{
+    unsigned int nbr = va_arg(*args, unsigned int);
+    char * nbr_itoa = ft_itoa_base(nbr, 16);
+    ft_putstr_fd(nbr_itoa, 1);//ft_putstr_fd(ft_tolower(nbr_itoa), 1);
+    return (ft_strlen(nbr_itoa));
+    return (0);
+}
+
+size_t ft_get_printf_X_flag(va_list *args)//X -> OK
+{
+    unsigned int nbr = va_arg(*args, unsigned int);
+    char * nbr_itoa = ft_itoa_base(nbr, 16);
+    ft_putstr_fd(ft_toupper(nbr_itoa), 1);
+    return (ft_strlen(nbr_itoa));
+    return (0);
+}*/

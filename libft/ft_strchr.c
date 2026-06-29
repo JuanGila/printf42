@@ -6,12 +6,10 @@
 /*   By: jgilaber <jgilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 19:55:14 by jgilaber          #+#    #+#             */
-/*   Updated: 2026/06/01 19:55:14 by jgilaber         ###   ########.fr       */
+/*   Updated: 2026/06/19 21:31:51 by jgilaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
 #include "libft.h"
 
 char	*ft_strchr(const char *str, int c)
@@ -33,13 +31,3 @@ char	*ft_strchr(const char *str, int c)
 	}
 	return (NULL);
 }
-
-/*
-int main()
-{
-	char c = 'z';
-	char str[16] = "Juancho Marques";
-	printf("%s\n", ft_strchr(str, c));
-	return (0);
-}
-*/

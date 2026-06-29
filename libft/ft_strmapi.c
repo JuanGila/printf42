@@ -6,7 +6,7 @@
 /*   By: jgilaber <jgilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 21:37:03 by jgilaber          #+#    #+#             */
-/*   Updated: 2026/06/01 21:37:03 by jgilaber         ###   ########.fr       */
+/*   Updated: 2026/06/19 21:30:08 by jgilaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,3 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	strmapi[strmapi_index] = '\0';
 	return (strmapi);
 }
-/*
-char	ft_mapi_uppercase_even(unsigned int i, char c) {
-	if (i % 2 == 0 && c >= 'a' && c <= 'z') return (c - 32);
-	return (c);
-}
-
-int main(void) {
-    char *string = malloc(sizeof(char) * 7);
-    strcpy(string, "abcdef");
-    printf("ft_strmapi -> %s", ft_strmapi(string, &ft_mapi_uppercase_even));
-    return (0);
-}
-*/
